@@ -12,6 +12,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI.InstanceProcessor;
@@ -129,6 +130,10 @@ public class GCMReceiver extends BroadcastReceiver {
 
         final PackageManager manager = context.getPackageManager();
         final Intent appIntent = manager.getLaunchIntentForPackage(context.getPackageName());
+
+        Bundle customExtrasBundle = intent.getExtras();
+        appIntent.putExtra("fromMixPanel", customExtrasBundle);
+
         CharSequence notificationTitle = "";
         int notificationIcon = android.R.drawable.sym_def_app_icon;
         try {
